@@ -12,57 +12,16 @@ server:
 croseFilter:
   enable: true
 
-
 spring:
-  freemarker:
-    prefix:
-    suffix: .html
-    template-loader-path: classpath:/public/views/
-    content-type: text/html;charset=UTF-8
-    charset: UTF-8
-    allow-request-override: true
-    allow-session-override: true
-    expose-request-attributes: true
-    expose-session-attributes: true
-    expose-spring-macro-helpers: false
-    request-context-attribute: request
+  aop:
+      proxy-target-class: true
+  http:
+      encoding:
+        force: true
+        charset: UTF-8
+        enabled: true
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
-      mapperLocations: classpath:mapper/**/*.xml
-      check-config-location: true
-      configLocation: classpath:/mybatis-config.xml
-      url: jdbc:mysql://192.168.1.253:3306/themiscore?useUnicode=true&characterEncoding=utf-8&useSSL=false
-      username: root
-      password: themis
-      driver-class-name: com.mysql.jdbc.Driver
-      minIdle: 5
-      maxActive: 100
-      initialSize: 10
-      maxWait: 60000
-      timeBetweenEvictionRunsMillis: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 1 FROM DUAL
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      poolPreparedStatements: true
-      removeAbandoned: true
-      removeAbandonedTimeout: 1800
-      maxPoolPreparedStatementPerConnectionSize: 50
-      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-      filters: stat,wall,log4j
-      logSlowSql: true
-
-mybatis:
-  mapper-locations: classpath:/mapper/**/*.xml
-  type-aliases-package: com.themis.service.pojo
-
-pagehelper:
- autoDialect: true
- closeConn: true
-
-aop:
-  proxy-target-class: true
 
 logging:
   file: D:/java/log/themisinfo.log
@@ -89,5 +48,61 @@ logging:
     org.hibernate: warn
     springfox.documentation: warn
 
-#数据库配置
-
+# 主数据源配置信息
+primary:
+  datasource:
+    #druid相关配置
+    druid:
+      #监控统计拦截的filters
+      filters: stat
+      driverClassName: com.mysql.jdbc.Driver
+      #配置基本属性
+      url: jdbc:mysql://47.105.205.117:3306/attendance_audit?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&useSSL=false
+      username: root
+      password: Lushuai@1992
+      #配置初始化大小/最小/最大
+      initialSize: 100
+      minIdle: 30
+      maxActive: 100
+      #获取连接等待超时时间
+      maxWait: 60000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接
+      timeBetweenEvictionRunsMillis: 60000
+      #一个连接在池中最小生存的时间
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      poolPreparedStatements: false
+      maxPoolPreparedStatementPerConnectionSize: 20
+# 自定义的从数据源配置信息
+back:
+  datasource:
+    #druid相关配置
+    druid:
+      #监控统计拦截的filters
+      filters: stat
+      driverClassName: com.mysql.jdbc.Driver
+      #配置基本属性
+      url: jdbc:mysql://47.105.205.117:3306/dw?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&useSSL=false
+      username: root
+      password: Lushuai@1992
+      #配置初始化大小/最小/最大
+      initialSize: 1
+      minIdle: 1
+      maxActive: 20
+      #获取连接等待超时时间
+      maxWait: 60000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接
+      timeBetweenEvictionRunsMillis: 60000
+      #一个连接在池中最小生存的时间
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      poolPreparedStatements: false
+      maxPoolPreparedStatementPerConnectionSize: 20

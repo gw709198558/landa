@@ -1,4 +1,4 @@
-package com.landasoft.mas.landamas;
+package com.landasoft.mas.examine;
 
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;

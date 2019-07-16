@@ -1,0 +1,93 @@
+
+server:
+  port: 9999
+  tomcat:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+      port-header: X-Forwarded-Port
+  compression:
+      enabled: true
+      mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+croseFilter:
+  enable: true
+
+
+spring:
+  freemarker:
+    prefix:
+    suffix: .html
+    template-loader-path: classpath:/public/views/
+    content-type: text/html;charset=UTF-8
+    charset: UTF-8
+    allow-request-override: true
+    allow-session-override: true
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: false
+    request-context-attribute: request
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      mapperLocations: classpath:mapper/**/*.xml
+      check-config-location: true
+      configLocation: classpath:/mybatis-config.xml
+      url: jdbc:mysql://192.168.1.253:3306/themiscore?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password: themis
+      driver-class-name: com.mysql.jdbc.Driver
+      minIdle: 5
+      maxActive: 100
+      initialSize: 10
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      removeAbandoned: true
+      removeAbandonedTimeout: 1800
+      maxPoolPreparedStatementPerConnectionSize: 50
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      filters: stat,wall,log4j
+      logSlowSql: true
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: com.themis.service.pojo
+
+pagehelper:
+ autoDialect: true
+ closeConn: true
+
+aop:
+  proxy-target-class: true
+
+logging:
+  file: D:/java/log/themisinfo.log
+  level:
+    root: info
+    org.springframework: warn
+    org.mybatis.spring: warn
+    org.aspectj.weaver: warn
+    org.apache.ibatis: warn
+    com.ibatis: warn
+    com.ibatis.common.jdbc.SimpleDataSource: warn
+    com.ibatis.common.jdbc.ScriptRunner: warn
+    com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate: warn
+    java.sql.Connection: warn
+    java.sql.Statement: warn
+    java.sql.PreparedStatement: warn
+    java.sql.ResultSet: warn
+    org.apache.shiro: warn
+    net.sf.ehcache: warn
+    freemarker: warn
+    org.apache: warn
+    org.quartz: warn
+    org.jboss: warn
+    org.hibernate: warn
+    springfox.documentation: warn
+
+#数据库配置
+
